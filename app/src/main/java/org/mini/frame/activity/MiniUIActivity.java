@@ -495,16 +495,17 @@ public class MiniUIActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void dismissWaiting() {
-        if (MiniThread.isMainThread()) {
-            execDismissWaiting();
-        }
-        else {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    execDismissWaiting();
-                }
-            });
+	    if (waitingView != null && waitingView.getVisibility() == View.VISIBLE) {
+            if (MiniThread.isMainThread()) {
+                execDismissWaiting();
+            } else {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        execDismissWaiting();
+                    }
+                });
+            }
         }
     }
 
